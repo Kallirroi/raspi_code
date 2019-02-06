@@ -1,5 +1,6 @@
 # import RPi.GPIO as gpio
 import pyaudio
+import time
 from record import Recorder
 from play import Player
 # gpio.setmode(gpio.BCM)
@@ -20,7 +21,8 @@ class ButtonRecorderPlayer(object):
         # gpio.remove_event_detect(23)
         print ('Recording')
         # gpio.add_event_detect(23, gpio.RISING, callback=self.rising, bouncetime=10)
-        self.recfile = self.rec.open('recordings/test.wav', self.p, 'wb')
+        timestr = time.strftime("%Y%m%d-%H%M%S")
+        self.recfile = self.rec.open('recordings/' + timestr + '.wav', self.p, 'wb')
         self.recfile.start_recording()
 
         input("Press Enter to stop recording...")
@@ -37,7 +39,9 @@ class ButtonRecorderPlayer(object):
 
     def start_playback(self, channel=1):
         print ('playback starting')
-        self.play.play('recordings/test.wav', self.p)
+        self.play.play('recordings', self.p)
+        input("Press Enter to start recording...")
+        self.start_recording()
 
 
 recPlayBtn = ButtonRecorderPlayer()
