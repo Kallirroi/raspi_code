@@ -1,10 +1,11 @@
 import wave
 import sys
 import glob, os
+import time
 
 
 class Player(object):
-    def __init__(self, channels=1, chunk=1024):
+    def __init__(self, channels=1, chunk=200):
         self._chunk = chunk
 
     def play(self, dirname, pyaudio):
@@ -28,6 +29,7 @@ class Player(object):
 
                 stream.stop_stream()
                 stream.close()
+                time.sleep(3)
 
         self._pa.terminate()
         print('done playing')
