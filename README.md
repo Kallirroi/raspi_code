@@ -3,7 +3,7 @@ Rapsberry Pi code for my thesis
 
 
 ### set up
-- download and burn raspian image
+- download and burn raspian image (I am using this 2018-06-27-raspbian-stretch)
 - set password, country, wifi network (MIT)
 - enable SSH
 #### rmate
