@@ -20,11 +20,10 @@ class ButtonRecorderPlayer(object):
         print ('Recording')
         gpio.output(4, True) #LED on
         timestr = time.strftime("%Y%m%d-%H%M%S")
-        # self.recfile = self.rec.open('recordings/' + timestr + '.wav', self.p, 'wb')
-        # self.recfile.start_recording() # non blocking mode
+        self.recfile = self.rec.open('recordings/' + timestr + '.wav', self.p, 'wb')
+        self.recfile.start_recording() # non blocking mode
         # self.recfile.record(duration = 10.0) # blocking mode
         time.sleep(0.25)
-
 
     def stop_recording(self, channel=1): # this should automatically break to "start playback"
         print ('Stopped recording')
@@ -36,7 +35,7 @@ class ButtonRecorderPlayer(object):
     def start_playback(self, channel=1):
         gpio.output(4, False) # LED is OFF when playing
         print ('Playing')
-        # self.play.play('recordings', self.p)
+        self.play.play('recordings', self.p)
         time.sleep(0.25)
 
 recPlayBtn = ButtonRecorderPlayer()
