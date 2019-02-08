@@ -17,9 +17,9 @@ class ButtonRecorderPlayer(object):
         self.play = Player()
         self.p = pyaudio
 
-    # def start(self):
-    #     input("Press Enter to start recording...")
-    #     self.start_recording()
+    def start(self):
+        input("Press Enter to start recording...")
+        self.start_recording()
         # gpio.add_event_detect(17, gpio.FALLING, callback=self.falling, bouncetime=10)
 
     def start_recording(self, channel=1):
@@ -27,39 +27,50 @@ class ButtonRecorderPlayer(object):
         print ('Recording')
         gpio.output(4, True) #LED on
         timestr = time.strftime("%Y%m%d-%H%M%S")
-        # self.recfile = self.rec.open('recordings/' + timestr + '.wav', self.p, 'wb')
-        # self.recfile.start_recording()
+        self.recfile = self.rec.open('recordings/' + timestr + '.wav', self.p, 'wb')
+        self.recfile.start_recording()
 
         time.sleep(0.5)
-        gpio.add_event_detect(17, gpio.FALLING, callback=self.stop_recording, bouncetime=100)
-        # input("Press Enter to stop recording...")
-        # self.stop_recording()
+        # gpio.add_event_detect(17, gpio.FALLING, callback=self.stop_recording, bouncetime=100)
+        input("Press Enter to stop recording...")
+        self.stop_recording()
 
     def stop_recording(self, channel=1): # this should automatically break to "start playback"
         gpio.remove_event_detect(17)
         print ('Stopped recording')
         gpio.output(4, False) #LED on
 
-        # self.recfile.stop_recording()
-        # self.recfile.close()
-        gpio.add_event_detect(17, gpio.FALLING, callback=self.start_recording, bouncetime=100)
+        self.recfile.stop_recording()
+        self.recfile.close()
+        # gpio.add_event_detect(17, gpio.FALLING, callback=self.start_recording, bouncetime=100)
         self.start_playback()
 
     def start_playback(self, channel=1):
         print ('playback starting')
-        # self.play.play('recordings', self.p)
+        self.play.play('recordings', self.p)
 
-        # input("Press Enter to start recording...")
-        # self.start_recording()
+        input("Press Enter to start recording...")
+        self.start_recording()
         time.sleep(0.5)
 
+    def stateChange(self, channel=1):
+        if state == recording:
+            self.stop_recording
+        else:
+            self.start_recording
+
 recPlayBtn = ButtonRecorderPlayer()
-# recPlayBtn.start()
-gpio.add_event_detect(17, gpio.FALLING, callback=recPlayBtn.start_recording, bouncetime=100)
+recPlayBtn.start()
+gpio.add_event_detect(17, gpio.FALLING, callback=recPlayBtn.stateChange, bouncetime=100)
 
 while True:
 
-    recPlayBtn.start_playback()
+    # listen for state change
+    if state == prev_state
+    # recPlayBtn.start_playback()
     time.sleep(1)
+
+    # state machine
+    # change to blocking pyAudio functions
 
 gpio.cleanup()
