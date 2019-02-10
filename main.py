@@ -23,13 +23,13 @@ class ButtonRecorderPlayer(object):
         if self.isPlaying:
             # print('stoping playback and starting recording')
             self.stop_playback()
-            self.start_recording()
             self.isPlaying = False
+            self.start_recording()
         else:
             # print('stoping recording and starting playback')
             self.stop_recording()
-            self.start_playback()
             self.isPlaying = True
+            self.start_playback()
 
     def start(self):
         gpio.add_event_detect(17, gpio.FALLING, callback=recPlayBtn.on_click, bouncetime=10)
