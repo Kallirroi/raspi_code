@@ -3,6 +3,8 @@ import pyaudio
 import time
 from record import Recorder
 from play import Player
+# from pynput import mouse
+# import threading
 
 gpio.setmode(gpio.BCM)
 gpio.setwarnings(False) # Ignore warning for now
@@ -14,52 +16,54 @@ class ButtonRecorderPlayer(object):
     def __init__(self):
         self.rec = Recorder(channels=1)
         self.play = Player()
+        self.isPlaying = True
         self.p = pyaudio
 
-    def start_recording(self, channel=1):
-        print ('Recording')
-        gpio.output(4, True) #LED on
-        timestr = time.strftime("%Y%m%d-%H%M%S")
-        self.recfile = self.rec.open('recordings/' + timestr + '.wav', self.p, 'wb')
-        self.recfile.start_recording() # non blocking mode
-        # self.recfile.record(duration = 10.0) # blocking mode
-        time.sleep(0.25)
+    def on_click(self, channel):
+        if self.isPlaying:
+            # print('stoping playback and starting recording')
+            self.stop_playback()
+            self.start_recording()
+            self.isPlaying = False
+        else:
+            # print('stoping recording and starting playback')
+            self.stop_recording()
+            self.start_playback()
+            self.isPlaying = True
 
-    def stop_recording(self, channel=1): # this should automatically break to "start playback"
-        print ('Stopped recording')
-        gpio.output(4, False) # LED is OFF when playing
-        # self.recfile.stop_recording()
-        # self.recfile.close()
-        time.sleep(0.25)
+    def start(self):
+        gpio.add_event_detect(17, gpio.FALLING, callback=recPlayBtn.on_click, bouncetime=10)
+        self.start_playback()
+
+    def start_recording(self, channel=1):
+        print ('Recording, click to stop recording')
+        timestr = time.strftime("%Y%m%d-%H%M%S")
+        gpio.output(4, True) #LED on
+        self.recfile = self.rec.open('recordings/' + timestr + '.wav', self.p, 'wb')
+        self.recfile.start_recording()
+
+    def stop_recording(self, channel=1):
+        self.recfile.stop_recording()
+        self.recfile.close()
+        gpio.output(4, False) #LED on
+        print ('Recording Stopped')
+
 
     def start_playback(self, channel=1):
-        gpio.output(4, False) # LED is OFF when playing
-        print ('Playing')
+        print ('playback starting')
         self.play.play('recordings', self.p)
-        time.sleep(0.25)
+
+    def stop_playback(self):
+        self.play.stop()
+        print ('playback stoped')
 
 recPlayBtn = ButtonRecorderPlayer()
-state = False
-def getState(state):
-    if (gpio.input(17) == 1):
-        state = not state
-    return state
+recPlayBtn.start()
 
-while True:
-    prevState = state
-    state = getState(prevState)
-
-    if (state == False):
-        if (prevState == True): # state is False and prevState is True => stop recording
-            recPlayBtn.stop_recording()
-        else: # state is False and prevState is False => play
-            recPlayBtn.start_playback()
-    else:
-        if (prevState == False): # state is True and prevState is False => start recording
-            recPlayBtn.start_recording()
-
-    # Now wait a while
-    time.sleep(0.25)
+try:
+    input()
+except KeyboardInterrupt:
+    pass
 
 #exit if invalid state
 gpio.cleanup()

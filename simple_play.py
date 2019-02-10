@@ -4,7 +4,7 @@ import pyaudio
 import wave
 import sys
 
-CHUNK = 1024
+CHUNK = 200
 
 if len(sys.argv) < 2:
     print("Plays a wave file.\n\nUsage: %s filename.wav" % sys.argv[0])
