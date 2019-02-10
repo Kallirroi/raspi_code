@@ -1,1 +1,4 @@
 dat_code/node_modules
+recordings/
+__pycache__
+*.pyc
