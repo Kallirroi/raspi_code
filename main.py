@@ -23,19 +23,19 @@ class ButtonRecorderPlayer(object):
     def on_button(self, channel):  # Called by inbuilt threaded interrupt
         print('button')
         if recPlayBtn.isPlaying:
-            # print('stoping playback and starting recording')
+            print('stoping playback and starting recording')
             recPlayBtn.stop_playback()
             recPlayBtn.isPlaying = False
             recPlayBtn.start_recording()
         else:
-            # print('stoping recording and starting playback')
+            print('stoping recording and starting playback')
             recPlayBtn.stop_recording()
             recPlayBtn.isPlaying = True
             recPlayBtn.start_playback()
 
     def button_listener(self):
         # with mouse.Listener( on_click = self.on_click) as listener:
-        with gpio.add_event_detect(17, gpio.FALLING, callback=self.on_button, bouncetime=300) as listener:
+        with gpio.add_event_detect(17, gpio.FALLING, callback=self.on_button, bouncetime=100) as listener:
             listener.join()
             print ('listener started')
 
@@ -58,7 +58,6 @@ class ButtonRecorderPlayer(object):
 
     def start_playback(self, channel=1):
         print ('playback starting')
-        print("click to start recording...")
         self.play = Player('recordings', self.p)
         self.play.start()
 
@@ -69,7 +68,6 @@ class ButtonRecorderPlayer(object):
 
 recPlayBtn = ButtonRecorderPlayer()
 recPlayBtn.start()
-
 
 try:
     input()
