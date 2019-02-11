@@ -24,4 +24,6 @@ Rapsberry Pi code for my thesis
 `npm install -g dat` or `npm install -g dat@v13.10.0`
 `npm install dat-node`
 
-It will complain about rights, its because of github maybe? Anyway - creating a local "recordings" repo (inside `dat_code`) is a good idea I think.
+### dat troubleshooting
+`rm -rf .dat/` if it complains about another `hypercore` instance.
+copy recordings to folder within `dat_code` if it complains about not being owner of archive.
