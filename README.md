@@ -27,17 +27,13 @@ Rapsberry Pi code for my thesis
 
 `npm install dat-node`
 
-### dat send files
-1. Run
-`node send.js`
-
+### dat sharing files
+1. `node send.js`
 to get the dat URL.
 
 2. Copy that to the recipient directory's receive.js file. The paths should all be relative e.g. `./test` rather than the absolute path.
 
-3.
-`node receive.js`
-
+3.`node receive.js`
 in the "recipient" directory, after having entered the dat URL. Make sure there is no existing `.dat/` directory anywhere there, there will be an issue with `hypercore`.
 
 
