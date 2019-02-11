@@ -33,7 +33,7 @@ Rapsberry Pi code for my thesis
 
 ### dat
 
-`npm install -g dat` or `npm install -g dat@v13.10.0`
+`npm install -g dat` 
 
 `npm install dat-node`
 
