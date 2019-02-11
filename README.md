@@ -23,6 +23,14 @@ Rapsberry Pi code for my thesis
 
 ### dat
 
+`sudo apt-get update && sudo apt-get upgrade` to make sure system is up to date.
+
+`wget -qO- https://deb.nodesource.com/setup_8.x | sudo bash` 
+
+`sudo apt-get install -y nodejs` 
+
+`nvm install 8.15.0` and `nvm use 8.15.0` to install Node and npm.
+
 `npm install -g dat` or `npm install -g dat@v13.10.0`
 
 `npm install dat-node`
