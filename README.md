@@ -21,7 +21,7 @@ Rapsberry Pi code for my thesis
 
 `amixer set PCM -- 100%` for setting max volume on Pi
 
-### dat
+### Node and npm
 
 `sudo apt-get update && sudo apt-get upgrade` to make sure system is up to date.
 
@@ -30,6 +30,8 @@ Rapsberry Pi code for my thesis
 `sudo apt-get install -y nodejs` 
 
 `nvm install 8.15.0` and `nvm use 8.15.0` to install Node and npm.
+
+### dat
 
 `npm install -g dat` or `npm install -g dat@v13.10.0`
 
