@@ -4,8 +4,9 @@ import os
 from threading import Thread,Event
 from time import sleep
 
+
 class Player(Thread):
-    def __init__(self, dirname, pyaudio, channels=1, chunk=1024):
+    def __init__(self, dirname, pyaudio, channels=1, chunk=200):
         Thread.__init__(self)
         self._stopper = Event()
         self._chunk = chunk
@@ -19,9 +20,10 @@ class Player(Thread):
         # loop until the stop event is set
         while not self._stopper.is_set():
             for file in os.listdir(self._dirname):
-                if file.endswith('.wav'):
-                    wf = wave.open(self._dirname + '/' + file, 'rb')
 
+                fileSize = os.path.getsize(self._dirname + '/' + file)
+                if file.endswith('.wav') and fileSize > 0:
+                    wf = wave.open(self._dirname + '/' + file, 'rb')
                     self._stream = self._pa.open(format=self._pa.get_format_from_width(wf.getsampwidth()),
                             channels=wf.getnchannels(),
                             rate=wf.getframerate(),
@@ -35,6 +37,7 @@ class Player(Thread):
 
                     self._stream.stop_stream()
                     self._stream.close()
+
         self._pa.terminate()
         print('done playing')
 
