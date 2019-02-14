@@ -2,3 +2,5 @@ node_modules/
 recordings/.dat/
 __pycache__
 *.pyc
+.dat
+tweet.py
