@@ -3,4 +3,5 @@ recordings/.dat/
 __pycache__
 *.pyc
 .dat
-tweet.py
+bot/tweet.py
+bot/tweet.js
