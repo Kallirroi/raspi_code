@@ -49,3 +49,7 @@ in the "recipient" directory, after having entered the dat URL. Make sure there 
 
 ### dat troubleshooting
 `rm -rf .dat/` if it complains about another `hypercore` instance.
+
+### bot
+`pip install tweepy`
+`pip install SpeechRecognition`
