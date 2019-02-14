@@ -5,12 +5,21 @@ from record import Recorder
 from play_thread import Player
 # from pynput import mouse
 import threading
+import random
+import string
+
 
 gpio.setmode(gpio.BCM)
 gpio.setwarnings(False) # Ignore warning for now
 gpio.setup(4, gpio.OUT)  # LED == 4 in BCM
 gpio.output(4, False)  # Set output to off
 gpio.setup(17, gpio.IN, pull_up_down=gpio.PUD_UP)
+
+
+def randomStringDigits(stringLength=6):
+    lettersAndDigits = string.ascii_letters + string.digits
+    return ''.join(random.choice(lettersAndDigits) for i in range(stringLength))
+
 
 class ButtonRecorderPlayer(object):
     def __init__(self):
@@ -46,8 +55,9 @@ class ButtonRecorderPlayer(object):
     def start_recording(self, channel=1):
         print ('Recording, click to stop recording')
         timestr = time.strftime("%Y%m%d-%H%M%S")
+        randomId = randomStringDigits(4)
         gpio.output(4, True) #LED on
-        self.recfile = self.rec.open('recordings/' + timestr + '.wav', self.p, 'wb')
+        self.recfile = self.rec.open('recordings/' + randomId + '-' + timestr + '.wav', self.p, 'wb')
         self.recfile.start_recording()
 
     def stop_recording(self, channel=1):
