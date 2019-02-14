@@ -49,3 +49,13 @@ in the "recipient" directory, after having entered the dat URL. Make sure there 
 
 ### dat troubleshooting
 `rm -rf .dat/` if it complains about another `hypercore` instance.
+
+
+After all this is done, running `python3 main.py` should start the playback + listening to button press for recording.
+
+### bot
+`pip install tweepy`
+
+`pip install SpeechRecognition`
+
+Run `python tweet.py` to tweet using @localobjects the transcribed messages.
