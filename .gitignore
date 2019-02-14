@@ -5,3 +5,4 @@ __pycache__
 .dat
 bot/tweet.py
 bot/tweet.js
+bot/watch.py
