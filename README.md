@@ -53,9 +53,9 @@ in the "recipient" directory, after having entered the dat URL. Make sure there 
 
 After all this is done, running `python3 main.py` should start the playback + listening to button press for recording.
 
-### bot
-`pip install tweepy`
+### twitter_object
+`pip3 install tweepy`
 
-`pip install SpeechRecognition`
+`pip3 install SpeechRecognition`
 
-Run `python tweet.py` to tweet using @localobjects the transcribed messages.
+`python3 main.py`
