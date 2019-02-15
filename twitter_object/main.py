@@ -2,8 +2,13 @@ import RPi.GPIO as gpio
 import pyaudio
 import time
 from record import Recorder
-import random
 import string
+import urllib
+import datetime
+import speech_recognition as sr
+import tweepy
+import re
+from tweet import TweetThis
 
 
 gpio.setmode(gpio.BCM)
@@ -13,48 +18,50 @@ gpio.output(4, False)  # Set output to off
 gpio.setup(17, gpio.IN, pull_up_down=gpio.PUD_UP)
 
 
-def randomStringDigits(stringLength=6):
-    lettersAndDigits = string.ascii_letters + string.digits
-    return ''.join(random.choice(lettersAndDigits) for i in range(stringLength))
-
-
 class ButtonRecorderPlayer(object):
     def __init__(self):
-        self.isListening = True
+        self.isRecording = False
         self.p = pyaudio
         self.rec = Recorder(channels=1)
+        self.filename = ''
+        self.t = TweetThis(filename = self.filename)
 
     def on_button(self, channel):
         print('button')
-        if recPlayBtn.isListening:
+        if not recPlayBtn.isRecording:
             recPlayBtn.start_recording()
-            recPlayBtn.isListening = False
+            recPlayBtn.isRecording = True
+            time.sleep(1);
         else:
             recPlayBtn.stop_recording()
-            recPlayBtn.isListening = True
+            recPlayBtn.isRecording = False
+            gpio.remove_event_detect(17)
+            recPlayBtn.listen();
+            time.sleep(1);
 
-    def start(self):
-        gpio.add_event_detect(17, gpio.FALLING, callback=self.on_button, bouncetime=100)
+    def listen(self):
+        gpio.add_event_detect(17, gpio.FALLING, callback=recPlayBtn.on_button, bouncetime=100)
         print ('listening')
 
     def start_recording(self, channel=1):
-        print ('Recording, click to stop recording')
+        print ('recording, click to stop recording')
         timestr = time.strftime("%Y%m%d-%H%M%S")
-        randomId = randomStringDigits(4)
         gpio.output(4, True) #LED on
-        self.recfile = self.rec.open('twitter_recordings/' + randomId + '-' + timestr + '.wav', self.p, 'wb')
+        self.filename = 'twitter_recordings/' + timestr + '.wav'
+        self.recfile = self.rec.open(self.filename, self.p, 'wb')
         self.recfile.start_recording()
 
     def stop_recording(self, channel=1):
         self.recfile.stop_recording()
         self.recfile.close()
         gpio.output(4, False) #LED on
-        print ('Recording Stopped')
-        print ('I should tweet now')
-
+        print ('recording stopped')
+        print ('tweeting', self.filename)
+        self.t.start(self.filename);
+        time.sleep(1);
 
 recPlayBtn = ButtonRecorderPlayer()
-recPlayBtn.start()
+recPlayBtn.listen();
 
 try:
     input()
