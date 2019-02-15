@@ -1,8 +1,7 @@
-node_modules/
+dat_code/node_modules/
 recordings/.dat/
 __pycache__
 *.pyc
-.dat
-bot/tweet.py
-bot/tweet.js
-bot/watch.py
+dat_code/.dat
+twitter_object/tweet.py
+twitter_object/watch.py
