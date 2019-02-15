@@ -4,4 +4,4 @@ __pycache__
 *.pyc
 dat_code/.dat
 twitter_object/tweet.py
-twitter_object/watch.py
+twitter_object/*.pyc
