@@ -1,5 +1,6 @@
 var Dat = require('dat-node')
 
+// 1. Which folder am I sharing?
 Dat('../recordings', function (err, dat) {
   if (err) throw err
 
