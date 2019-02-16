@@ -46,6 +46,8 @@ to get the dat URL.
 3.`node receive.js`
 in the "recipient" directory, after having entered the dat URL. Make sure there is no existing `.dat/` directory anywhere there, there will be an issue with `hypercore`.
 
+Each object sends their `/raspi_code/recordings/` files, and receives files in the `/raspi_code/dat_code/recordings/` directory. A cron job then moves them to `/raspi_code/recordings/` so they can be fed to the playback.
+
 
 ### dat troubleshooting
 `rm -rf .dat/` if it complains about another `hypercore` instance.
