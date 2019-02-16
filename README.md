@@ -19,7 +19,7 @@ Rapsberry Pi code for my thesis
 
 `pip3 install pyaudio`
 
-`amixer set PCM -- 100%` for setting max volume on Pi
+`alsamixer -c 1` for setting microphone volume
 
 ### Node and npm
 
