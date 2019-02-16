@@ -3,5 +3,6 @@ recordings/.dat/
 __pycache__
 *.pyc
 dat_code/.dat
+dat_code/recordings/.dat
 twitter_object/tweet.py
 twitter_object/*.pyc
