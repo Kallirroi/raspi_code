@@ -6,7 +6,7 @@ from time import sleep
 
 
 class Player(Thread):
-    def __init__(self, dirname, pyaudio, channels=1, chunk=200):
+    def __init__(self, dirname, pyaudio, channels=1, chunk = 100):
         Thread.__init__(self)
         self._stopper = Event()
         self._chunk = chunk
