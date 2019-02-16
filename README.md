@@ -59,3 +59,37 @@ After all this is done, running `python3 main.py` should start the playback + li
 `pip3 install SpeechRecognition`
 
 `python3 main.py`
+
+### systemd
+
+I need to make sure that `send.js` and `receive.js` are always running on the background. I have made a crontab for `update_recordings.sh` (do `crontab- e` and then `0 * * * *  /home/pi/raspi_code/update_recordings.sh` to set it).
+
+
+For creating `systemd` services:
+
+`sudo nano /etc/systemd/system/script_name.service` to create a service. Add:
+
+```[Unit]
+Description=update_recordings
+After=network.target
+
+[Service]
+ExecStart=/bin/bash -c "cp /home/pi/raspi_code/dat_code/recordings/*.wav /home/pi/raspi_code/recordings/"
+WorkingDirectory=/home/pi/raspi_code/
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
+```
+
+
+`sudo systemctl start update_recordings.service` and if it works well, 
+
+`sudo systemctl enable update_recordings.service`
+
+`sudo systemctl daemon-reload` if needed to reload.
+
+It should create this `Created symlink /etc/systemd/system/multi-user.target.wants/run_send.service → /etc/systemd/system/run_send.service.` if all goes well. 
