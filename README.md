@@ -27,6 +27,8 @@ Rapsberry Pi code for my thesis
 
 `wget -qO- https://deb.nodesource.com/setup_8.x | sudo bash` 
 
+`source ~/.nvm/nvm.sh`
+
 `sudo apt-get install -y nodejs` 
 
 `nvm install 8.15.0` and `nvm use 8.15.0` to install Node and npm.
