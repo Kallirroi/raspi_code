@@ -29,9 +29,10 @@ Rapsberry Pi code for my thesis
 
 `source ~/.nvm/nvm.sh`
 
+`nvm install 8.15.0` and `nvm use 8.15.0` to install Node and npm.
+
 `sudo apt-get install -y nodejs` 
 
-`nvm install 8.15.0` and `nvm use 8.15.0` to install Node and npm.
 
 ### dat
 
