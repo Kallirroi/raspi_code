@@ -75,11 +75,11 @@ For creating `systemd` services:
 `sudo nano /etc/systemd/system/script_name.service` to create a service. Add:
 
 ```[Unit]
-Description=update_recordings
+Description=script_name
 After=network.target
 
 [Service]
-ExecStart=/bin/bash -c "cp /home/pi/raspi_code/dat_code/recordings/*.wav /home/pi/raspi_code/recordings/"
+ExecStart=/home/pi/raspi_code/script_name.sh
 WorkingDirectory=/home/pi/raspi_code/
 StandardOutput=inherit
 StandardError=inherit
@@ -91,10 +91,12 @@ WantedBy=multi-user.target
 ```
 
 
-`sudo systemctl start update_recordings.service` and if it works well, 
+`sudo systemctl start scrpt_name.service` and if it works well, 
 
-`sudo systemctl enable update_recordings.service`
+`sudo systemctl enable script_name.service`
 
-`sudo systemctl daemon-reload` if needed to reload.
+`sudo systemctl daemon-reload` if needed to reload and
+
+`sudo systemctl status script_name.service` to check errors.
 
 It should create this `Created symlink /etc/systemd/system/multi-user.target.wants/run_send.service → /etc/systemd/system/run_send.service.` if all goes well. 
