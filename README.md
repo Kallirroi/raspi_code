@@ -80,8 +80,8 @@ Description=send
 After=network.target
 
 [Service]
-ExecStart=/bin/bash /home/pi/raspi_code/send.sh
-WorkingDirectory=/home/pi/raspi_code/dat_code/
+ExecStart=/bin/bash /home/pi/raspi_code/dat_code/servicefiles/send.sh
+WorkingDirectory=/home/pi/raspi_code/dat_code/servicefiles
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
@@ -99,8 +99,8 @@ Description=receive
 After=network.target
 
 [Service]
-ExecStart=/bin/bash /home/pi/raspi_code/receive.sh
-WorkingDirectory=/home/pi/raspi_code/dat_code/
+ExecStart=/bin/bash /home/pi/raspi_code/dat_code/servicefiles/receive.sh
+WorkingDirectory=/home/pi/raspi_code/dat_code/servicefiles/
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
