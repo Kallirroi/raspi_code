@@ -27,9 +27,12 @@ Rapsberry Pi code for my thesis
 
 `wget -qO- https://deb.nodesource.com/setup_8.x | sudo bash` 
 
-`sudo apt-get install -y nodejs` 
+`source ~/.nvm/nvm.sh`
 
 `nvm install 8.15.0` and `nvm use 8.15.0` to install Node and npm.
+
+`sudo apt-get install -y nodejs` 
+
 
 ### dat
 
@@ -69,15 +72,16 @@ I need to make sure that `send.js` and `receive.js` are always running on the ba
 
 For creating `systemd` services:
 
-`sudo nano /etc/systemd/system/script_name.service` to create a service. Add:
+`sudo nano /etc/systemd/system/script_name.service` to create a service. For sending files using dat:
 
 ```[Unit]
-Description=update_recordings
+[Unit]
+Description=send
 After=network.target
 
 [Service]
-ExecStart=/bin/bash -c "cp /home/pi/raspi_code/dat_code/recordings/*.wav /home/pi/raspi_code/recordings/"
-WorkingDirectory=/home/pi/raspi_code/
+ExecStart=/bin/bash /home/pi/raspi_code/send.sh
+WorkingDirectory=/home/pi/raspi_code/dat_code/
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
@@ -87,11 +91,31 @@ User=pi
 WantedBy=multi-user.target
 ```
 
+and for receiving: 
 
-`sudo systemctl start update_recordings.service` and if it works well, 
+```[Unit]
+[Unit]
+Description=receive
+After=network.target
 
-`sudo systemctl enable update_recordings.service`
+[Service]
+ExecStart=/bin/bash /home/pi/raspi_code/receive.sh
+WorkingDirectory=/home/pi/raspi_code/dat_code/
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
 
-`sudo systemctl daemon-reload` if needed to reload.
+[Install]
+WantedBy=multi-user.target
+```
+
+`sudo systemctl start scrpt_name.service` and if it works well, 
+
+`sudo systemctl enable script_name.service`
+
+`sudo systemctl daemon-reload` if needed to reload and
+
+`sudo systemctl status script_name.service` to check errors.
 
 It should create this `Created symlink /etc/systemd/system/multi-user.target.wants/run_send.service → /etc/systemd/system/run_send.service.` if all goes well. 
