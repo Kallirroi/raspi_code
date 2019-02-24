@@ -72,15 +72,16 @@ I need to make sure that `send.js` and `receive.js` are always running on the ba
 
 For creating `systemd` services:
 
-`sudo nano /etc/systemd/system/script_name.service` to create a service. Add:
+`sudo nano /etc/systemd/system/script_name.service` to create a service. For sending files using dat:
 
 ```[Unit]
-Description=script_name
+[Unit]
+Description=send
 After=network.target
 
 [Service]
-ExecStart=/home/pi/raspi_code/script_name.sh
-WorkingDirectory=/home/pi/raspi_code/
+ExecStart=/home/pi/raspi_code/send.sh
+WorkingDirectory=/home/pi/raspi_code/dat_code/
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
@@ -90,6 +91,24 @@ User=pi
 WantedBy=multi-user.target
 ```
 
+and for receiving: 
+
+```[Unit]
+[Unit]
+Description=receive
+After=network.target
+
+[Service]
+ExecStart=/home/pi/raspi_code/receive.sh
+WorkingDirectory=/home/pi/raspi_code/dat_code/
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
+```
 
 `sudo systemctl start scrpt_name.service` and if it works well, 
 
