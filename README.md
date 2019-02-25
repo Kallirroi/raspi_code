@@ -76,7 +76,7 @@ For creating `systemd` services:
 
 ```
 [Unit]
-Description=send.js
+Description=send
 After=network.target
 
 [Service]
