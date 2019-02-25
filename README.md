@@ -74,14 +74,14 @@ For creating `systemd` services:
 
 `sudo nano /etc/systemd/system/script_name.service` to create a service. For sending files using dat:
 
-```[Unit]
+```
 [Unit]
-Description=send
+Description=send.js
 After=network.target
 
 [Service]
-ExecStart=/bin/bash /home/pi/raspi_code/dat_code/servicefiles/send.sh
-WorkingDirectory=/home/pi/raspi_code/dat_code/servicefiles
+ExecStart=/bin/bash /home/pi/raspi_code/dat_code/send.sh
+WorkingDirectory=/home/pi/raspi_code/dat_code/
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
@@ -93,14 +93,14 @@ WantedBy=multi-user.target
 
 and for receiving: 
 
-```[Unit]
+```
 [Unit]
 Description=receive
 After=network.target
 
 [Service]
-ExecStart=/bin/bash /home/pi/raspi_code/dat_code/servicefiles/receive.sh
-WorkingDirectory=/home/pi/raspi_code/dat_code/servicefiles/
+ExecStart=/bin/bash /home/pi/raspi_code/dat_code/receive.sh
+WorkingDirectory=/home/pi/raspi_code/dat_code/
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
