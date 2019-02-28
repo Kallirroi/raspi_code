@@ -19,6 +19,10 @@ Rapsberry Pi code for my thesis
 
 `pip3 install pyaudio`
 
+` sudo nano /usr/share/alsa/alsa.conf` for modifying the ALSA file 
+
+then reboot - make sure the card is plugged into the USB.
+
 `alsamixer -c 1` for setting microphone volume
 
 ### Node and npm
