@@ -71,7 +71,7 @@ After all this is done, running `python3 main.py` should start the playback + li
 
 ### systemd
 
-I need to make sure that `send.js` and `receive.js` are always running on the background. I have made a crontab for `update_recordings.sh` (do `crontab- e` and then `0 * * * *  /home/pi/raspi_code/update_recordings.sh` to set it).
+I need to make sure that `send.js` and `receive.js` are always running on the background. I have made a crontab for `update_recordings.sh` (do `crontab- e` and then `0 * * * *  /home/pi/raspi_code/dat_code/update_recordings.sh` to set it).
 
 
 For creating `systemd` services:
