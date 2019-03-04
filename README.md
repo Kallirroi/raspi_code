@@ -85,7 +85,8 @@ Description=send
 After=network.target
 
 [Service]
-ExecStart=/bin/bash /home/pi/raspi_code/dat_code/servicefiles/send.sh
+ExecStart=/home/pi/.nvm/versions/node/v8.15.0/bin/node send.js
+WorkingDirectory=/home/pi/raspi_code/dat_code/
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
@@ -99,11 +100,12 @@ and for receiving:
 
 ```
 [Unit]
-Description=receive
+Description=send
 After=network.target
 
 [Service]
-ExecStart=/bin/bash /home/pi/raspi_code/dat_code/servicefiles/receive.sh
+ExecStart=/home/pi/.nvm/versions/node/v8.15.0/bin/node receive.js
+WorkingDirectory=/home/pi/raspi_code/dat_code/
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
