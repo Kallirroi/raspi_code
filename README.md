@@ -71,13 +71,13 @@ After all this is done, running `python3 main.py` should start the playback + li
 
 ### cron
 
-I need to make sure that `send.js` and `receive.js` are always running on the background. I have made a crontab for `update_recordings.sh` (do `crontab- e` and then `0 * * * *  /home/pi/raspi_code/dat_code/update_recordings.sh` to set it).
+I need to make sure that `send.js` and `receive.js` are always running on the background. I have made a crontab for `update_recordings.sh` (do `crontab- e` and then `*/30 * * * *  /home/pi/raspi_code/dat_code/update_recordings.sh` to set it).
 
 ### systemd
 
 For creating `systemd` services:
 
-`sudo nano /etc/systemd/system/script_name.service` to create a service. For sending files using dat:
+`sudo nano /etc/systemd/system/run_send.service` to create a service. For sending files using dat:
 
 ```
 [Unit]
@@ -115,12 +115,12 @@ User=pi
 WantedBy=multi-user.target
 ```
 
-`sudo systemctl start scrpt_name.service` and if it works well, 
+`sudo systemctl start run_send.service` and if it works well, 
 
-`sudo systemctl enable script_name.service`
+`sudo systemctl enable run_send.service`
 
 `sudo systemctl daemon-reload` if needed to reload and
 
-`sudo systemctl status script_name.service` to check errors.
+`sudo systemctl status run_send.service` to check errors.
 
 It should create this `Created symlink /etc/systemd/system/multi-user.target.wants/run_send.service → /etc/systemd/system/run_send.service.` if all goes well. 
