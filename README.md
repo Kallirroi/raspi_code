@@ -19,7 +19,7 @@ Rapsberry Pi code for my thesis
 
 `pip3 install pyaudio`
 
-` sudo nano /usr/share/alsa/alsa.conf` for modifying the ALSA file 
+` sudo nano /usr/share/alsa/alsa.conf` for modifying the ALSA file - or use `alsamixer` and F6 and then `sudo alsactl store 1`
 
 then reboot - make sure the card is plugged into the USB.
 
