@@ -124,3 +124,12 @@ WantedBy=multi-user.target
 `sudo systemctl status run_send.service` to check errors.
 
 It should create this `Created symlink /etc/systemd/system/multi-user.target.wants/run_send.service → /etc/systemd/system/run_send.service.` if all goes well. 
+
+
+### pm2
+
+`pm2 start main.py --interpreter=python3`
+
+`sudo env PATH=$PATH:/usr/local/bin pm2 startup systemd -u pi --hp /home/pi`
+
+`pm2 save`
