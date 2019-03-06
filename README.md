@@ -128,6 +128,8 @@ It should create this `Created symlink /etc/systemd/system/multi-user.target.wan
 
 ### pm2
 
+`npm install pm2@latest -g`
+
 `pm2 start main.py --interpreter=python3`
 
 `sudo env PATH=$PATH:/usr/local/bin pm2 startup systemd -u pi --hp /home/pi`
