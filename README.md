@@ -135,3 +135,5 @@ It should create this `Created symlink /etc/systemd/system/multi-user.target.wan
 `sudo env PATH=$PATH:/usr/local/bin pm2 startup systemd -u pi --hp /home/pi`
 
 `pm2 save`
+
+`pm2 flush &&  pm2 restart 0 --update-env` for restarting
