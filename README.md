@@ -100,7 +100,7 @@ and for receiving:
 
 ```
 [Unit]
-Description=send
+Description=receive
 After=network.target
 
 [Service]
