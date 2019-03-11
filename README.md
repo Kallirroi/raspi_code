@@ -130,7 +130,7 @@ It should create this `Created symlink /etc/systemd/system/multi-user.target.wan
 
 `npm install pm2@latest -g`
 
-`pm2 start main.py --interpreter=python3`
+`pm2 start main.py --interpreter=python3 --log-date-format 'DD-MM HH:mm:ss.SSS'`
 
 `sudo env PATH=$PATH:/usr/local/bin pm2 startup systemd -u pi --hp /home/pi`
 
