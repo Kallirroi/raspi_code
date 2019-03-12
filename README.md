@@ -130,10 +130,14 @@ It should create this `Created symlink /etc/systemd/system/multi-user.target.wan
 
 `npm install pm2@latest -g`
 
-`pm2 start main.py --interpreter=python3 --log-date-format 'DD-MM HH:mm:ss.SSS'`
+`pm2 start main.py --interpreter=python3 --log-date-format 'DD-MM HH:mm:ss.SSS' --name app ` 
 
 `sudo env PATH=$PATH:/usr/local/bin pm2 startup systemd -u pi --hp /home/pi`
 
 `pm2 save`
 
-`pm2 flush && pm2 restart 0 --update-env  --log-date-format 'DD-MM HH:mm:ss.SSS'` for restarting
+`pm2 flush && pm2 restart app --update-env  --log-date-format 'DD-MM HH:mm:ss.SSS'` for restarting the main process 
+
+for clock: 
+
+`pm2 start pm2.js --name clock` 
