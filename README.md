@@ -136,4 +136,4 @@ It should create this `Created symlink /etc/systemd/system/multi-user.target.wan
 
 `pm2 save`
 
-`pm2 flush &&  pm2 restart 0 --update-env` for restarting
+`pm2 flush && pm2 restart 0 --update-env  --log-date-format 'DD-MM HH:mm:ss.SSS'` for restarting
