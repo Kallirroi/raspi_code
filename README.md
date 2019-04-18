@@ -73,59 +73,6 @@ After all this is done, running `python3 main.py` should start the playback + li
 
 I need to make sure that `send.js` and `receive.js` are always running on the background. I have made a crontab for `update_recordings.sh` (do `crontab- e` and then `*/30 * * * *  /home/pi/raspi_code/dat_code/update_recordings.sh` to set it).
 
-### systemd
-
-For creating `systemd` services:
-
-`sudo nano /etc/systemd/system/run_send.service` to create a service. For sending files using dat:
-
-```
-[Unit]
-Description=send
-After=network.target
-
-[Service]
-ExecStart=/home/pi/.nvm/versions/node/v8.15.0/bin/node send.js
-WorkingDirectory=/home/pi/raspi_code/dat_code/
-StandardOutput=inherit
-StandardError=inherit
-Restart=always
-User=pi
-
-[Install]
-WantedBy=multi-user.target
-```
-
-and for receiving: 
-
-```
-[Unit]
-Description=receive
-After=network.target
-
-[Service]
-ExecStart=/home/pi/.nvm/versions/node/v8.15.0/bin/node receive.js
-WorkingDirectory=/home/pi/raspi_code/dat_code/
-StandardOutput=inherit
-StandardError=inherit
-Restart=always
-User=pi
-
-[Install]
-WantedBy=multi-user.target
-```
-
-`sudo systemctl start run_send.service` and if it works well, 
-
-`sudo systemctl enable run_send.service`
-
-`sudo systemctl daemon-reload` if needed to reload and
-
-`sudo systemctl status run_send.service` to check errors.
-
-It should create this `Created symlink /etc/systemd/system/multi-user.target.wants/run_send.service → /etc/systemd/system/run_send.service.` if all goes well. 
-
-
 ### pm2
 
 `npm install pm2@latest -g`
@@ -138,6 +85,8 @@ It should create this `Created symlink /etc/systemd/system/multi-user.target.wan
 
 `pm2 flush && pm2 restart main --update-env  --log-date-format 'DD-MM HH:mm:ss.SSS'` for restarting the main process 
 
-for clock: 
+for dat, in the `dat_code` directory: 
 
-`pm2 start pm2.js --name clock` 
+`pm2 start send.js --name dat-send`
+
+`pm2 start receive.js --name dat-receive` 
